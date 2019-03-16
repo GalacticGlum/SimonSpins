@@ -28,17 +28,17 @@ public class UIManager : MonoBehaviour
         Instance = this;
 
         canvas = FindObjectOfType<Canvas>();
-        HudObject = canvas.transform.FindChild("HUD").gameObject;
+        HudObject = canvas.transform.Find("HUD").gameObject;
         gameOverCanvasGroup = gameOverState.GetComponent<CanvasGroup>();
         gameOverCanvasGroup.alpha = 0;
         gameOverDimImage = GameObject.Find("Game Over Dimmer").GetComponent<Image>();
-        gameOverPoints = gameOverState.transform.FindChild("Points").GetComponent<Text>();
+        gameOverPoints = gameOverState.transform.Find("Points").GetComponent<Text>();
     }
 
 	private void Update ()
     {
-        livesText.text = string.Format("Lives: {0}", GameManager.Current.Lives);
-        pointText.text = string.Format("Points: {0}", GameManager.Current.Points);
+        livesText.text = $"Lives: {GameManager.Current.Lives}";
+        pointText.text = $"Points: {GameManager.Current.Points}";
 
         if (GameManager.Current.Lives < 1)
         {
@@ -47,7 +47,7 @@ public class UIManager : MonoBehaviour
                 gameOverState.transform.Translate(-Screen.width, 0, 0);
                 gameOverCanvasGroup.alpha = 1;
 
-                gameOverPoints.text = string.Format("{0} POINTS!", GameManager.Current.Points);
+                gameOverPoints.text = $"{GameManager.Current.Points} POINTS!";
             }
 
             lerpIntensity += gameOverTransitionSpeed * Time.deltaTime;
